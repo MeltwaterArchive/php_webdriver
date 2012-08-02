@@ -16,17 +16,9 @@
 
 namespace DataSift\WebDriver;
 
-class WebDriverSimpleItem extends WebDriverBase
-{
-    private $_methods = array();
+use Exception;
 
-    protected function methods()
-    {
-        return $this->_methods;
-    }
-
-    public function setMethods($methods) {
-        $this->_methods = $methods;
-        return $this;
-    }
-}
+/**
+ * Thrown when CURL reports an error talking to the webdriver
+ */
+class WebDriverCurlException extends Exception {} // When curls fail

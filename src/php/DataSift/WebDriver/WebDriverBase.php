@@ -1,5 +1,6 @@
 <?php
 // Copyright 2004-present Facebook. All Rights Reserved.
+// Copyright 2012-present MediaSift Ltd. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,224 +14,282 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-abstract class WebDriverBase {
+namespace DataSift\WebDriver;
 
-  public static function throwException($status_code, $message, $results) {
-    switch ($status_code) {
-      case 0:
-        // Success
-        break;
-      case 1:
-        throw new IndexOutOfBoundsWebDriverError($message, $results);
-      case 2:
-        throw new NoCollectionWebDriverError($message, $results);
-      case 3:
-        throw new NoStringWebDriverError($message, $results);
-      case 4:
-        throw new NoStringLengthWebDriverError($message, $results);
-      case 5:
-        throw new NoStringWrapperWebDriverError($message, $results);
-      case 6:
-        throw new NoSuchDriverWebDriverError($message, $results);
-      case 7:
-        throw new NoSuchElementWebDriverError($message, $results);
-      case 8:
-        throw new NoSuchFrameWebDriverError($message, $results);
-      case 9:
-        throw new UnknownCommandWebDriverError($message, $results);
-      case 10:
-        throw new ObsoleteElementWebDriverError($message, $results);
-      case 11:
-        throw new ElementNotDisplayedWebDriverError($message, $results);
-      case 12:
-        throw new InvalidElementStateWebDriverError($message, $results);
-      case 13:
-        throw new UnhandledWebDriverError($message, $results);
-      case 14:
-        throw new ExpectedWebDriverError($message, $results);
-      case 15:
-        throw new ElementNotSelectableWebDriverError($message, $results);
-      case 16:
-        throw new NoSuchDocumentWebDriverError($message, $results);
-      case 17:
-        throw new UnexpectedJavascriptWebDriverError($message, $results);
-      case 18:
-        throw new NoScriptResultWebDriverError($message, $results);
-      case 19:
-        throw new XPathLookupWebDriverError($message, $results);
-      case 20:
-        throw new NoSuchCollectionWebDriverError($message, $results);
-      case 21:
-        throw new TimeOutWebDriverError($message, $results);
-      case 22:
-        throw new NullPointerWebDriverError($message, $results);
-      case 23:
-        throw new NoSuchWindowWebDriverError($message, $results);
-      case 24:
-        throw new InvalidCookieDomainWebDriverError($message, $results);
-      case 25:
-        throw new UnableToSetCookieWebDriverError($message, $results);
-      case 26:
-        throw new UnexpectedAlertOpenWebDriverError($message, $results);
-      case 27:
-        throw new NoAlertOpenWebDriverError($message, $results);
-      case 28:
-        throw new ScriptTimeoutWebDriverError($message, $results);
-      case 29:
-        throw new InvalidElementCoordinatesWebDriverError($message, $results);
-      case 30:
-        throw new IMENotAvailableWebDriverError($message, $results);
-      case 31:
-        throw new IMEEngineActivationFailedWebDriverError($message, $results);
-      case 32:
-        throw new InvalidSelectorWebDriverError($message, $results);
+use Exception;
+
+abstract class WebDriverBase
+{
+    /**
+     * Returns the name of the exception class to throw
+     * @param  int    $status_code the status code returned from webdriver
+     * @return string              the name of the exception class to throw, or null if no error occurred
+     */
+    public function returnExceptionToThrow($status_code)
+    {
+        static $map = array (
+            1  => 'IndexOutOfBoundsWebDriverError',
+            2  => 'NoCollectionWebDriverError',
+            3  => 'NoStringWebDriverError',
+            4  => 'NoStringLengthWebDriverError',
+            5  => 'NoStringWrapperWebDriverError',
+            6  => 'NoSuchDriverWebDriverError',
+            7  => 'NoSuchElementWebDriverError',
+            8  => 'NoSuchFrameWebDriverError',
+            9  => 'UnknownCommandWebDriverError',
+            10 => 'ObsoleteElementWebDriverError',
+            11 => 'ElementNotDisplayedWebDriverError',
+            12 => 'InvalidElementStateWebDriverError',
+            13 => 'UnhandledWebDriverError',
+            14 => 'ExpectedWebDriverError',
+            15 => 'ElementNotSelectableWebDriverError',
+            16 => 'NoSuchDocumentWebDriverError',
+            17 => 'UnexpectedJavascriptWebDriverError',
+            18 => 'NoScriptResultWebDriverError',
+            19 => 'XPathLookupWebDriverError',
+            20 => 'NoSuchCollectionWebDriverError',
+            21 => 'TimeOutWebDriverError',
+            22 => 'NullPointerWebDriverError',
+            23 => 'NoSuchWindowWebDriverError',
+            24 => 'InvalidCookieDomainWebDriverError',
+            25 => 'UnableToSetCookieWebDriverError',
+            26 => 'UnexpectedAlertOpenWebDriverError',
+            27 => 'NoAlertOpenWebDriverError',
+            28 => 'ScriptTimeoutWebDriverError',
+            29 => 'InvalidElementCoordinatesWebDriverError',
+            30 => 'IMENotAvailableWebDriverError',
+            31 => 'IMEEngineActivationFailedWebDriverError',
+            32 => 'InvalidSelectorWebDriverError',
+            33 => 'SessionNotCreatedWebDriverError',
+            34 => 'MoveTargetOutOfBoundsWebDriverError',
+        );
+
+        // did an error occur?
+        if ($status_code == 0) {
+            return null;
+        }
+
+        // is this a known problem?
+        if (isset($map[$status_code])) {
+            return __NAMESPACE__ . '\\' . $map[$status_code];
+        }
+
+        // we have an unknown exception
+        return __NAMESPACE__ . '\\UnknownWebDriverError';
     }
-  }
 
-  abstract protected function methods();
+    /**
+     * A list of the methods that the child class exposes to the user
+     * @return array
+     */
+    abstract protected function methods();
 
-  protected $url;
-  public function __construct($url = 'http://localhost:4444/wd/hub') {
-    $this->url = $url;
-  }
-  public function __toString() {
-    return $this->url;
-  }
+    /**
+     * the URL of the webdriver server we are using
+     * @var string
+     */
+    protected $url;
 
-  public function getURL() {
-    return $this->url;
-  }
+    /**
+     * constructor
+     *
+     * @param string $url the URL where the Selenium server can be found
+     */
+    public function __construct($url = 'http://localhost:4444/wd/hub')
+    {
+        $this->url = $url;
+    }
 
-  /**
-   * Curl request to webdriver server.
-   *
-   * $http_method  'GET', 'POST', or 'DELETE'
-   * $command      If not defined in methods() this function will throw.
-   * $params       If an array(), they will be posted as JSON parameters
-   *               If a number or string, "/$params" is appended to url
-   * $extra_opts   key=>value pairs of curl options to pass to curl_setopt()
-   */
-  protected function curl(
-    $http_method,
-    $command,
-    $params = null,
-    $extra_opts = array()) {
+    /**
+     * convert this class for printing to the screen
+     * @return string [description]
+     */
+    public function __toString() {
+        return $this->url;
+    }
 
-    if ($params && is_array($params) && $http_method !== 'POST') {
-      throw new Exception(sprintf(
-        'The http method called for %s is %s but it has to be POST' .
-        ' if you want to pass the JSON params %s',
+    /**
+     * get the URL of the Selenium webdriver server we are talking to
+     * @return string URL of the Selenium webdriver server
+     */
+    public function getURL() {
+        return $this->url;
+    }
+
+    /**
+     * Curl request to webdriver server.
+     *
+     * $http_method  'GET', 'POST', or 'DELETE'
+     * $command      If not defined in methods() this function will throw.
+     * $params       If an array(), they will be posted as JSON parameters
+     *               If a number or string, "/$params" is appended to url
+     * $extra_opts   key=>value pairs of curl options to pass to curl_setopt()
+     */
+    protected function curl(
+        $http_method,
         $command,
-        $http_method,
-        json_encode($params)));
+        $params = null,
+        $extra_opts = array()
+    )
+    {
+        // catch problems with the definition of allowed methods in
+        // child classes
+        if ($params && is_array($params) && $http_method !== 'POST') {
+            throw new Exception(sprintf(
+                'The http method called for %s is %s but it has to be POST' .
+                ' if you want to pass the JSON params %s',
+                $command,
+                $http_method,
+                json_encode($params)));
+        }
+
+        // determine the URL we are posting to
+        $url = sprintf('%s%s', $this->url, $command);
+        if ($params && (is_int($params) || is_string($params))) {
+            $url .= '/' . $params;
+        }
+
+        // create the curl request
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt(
+            $curl,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json;charset=UTF-8',
+                'Accept: application/json'
+            )
+        );
+        if ($http_method === 'POST') {
+            curl_setopt($curl, CURLOPT_POST, true);
+
+            if ($params && is_array($params)) {
+                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
+            }
+        }
+        else if ($http_method == 'DELETE') {
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+        }
+        foreach ($extra_opts as $option => $value) {
+            curl_setopt($curl, $option, $value);
+        }
+
+        // make the curl request
+        $raw_results = trim(curl_exec($curl));
+
+        // find out from curl what happened
+        $info = curl_getinfo($curl);
+
+        // was there an error?
+        if ($error = curl_error($curl)) {
+            // yes, there was
+            // we throw an exception to explain that the call failed
+            $msg = sprintf(
+                'Curl error thrown for http %s to %s',
+                $http_method,
+                $url
+            );
+            if ($params && is_array($params)) {
+                $msg .= sprintf(' with params: %s', json_encode($params));
+            }
+            throw new WebDriverCurlException($msg . "\n\n" . $error);
+        }
+        // we're done with curl for this request
+        curl_close($curl);
+
+        // convert the response from webdriver into something we can work with
+        $results = json_decode($raw_results, true);
+
+        // did we get a value back from webdriver?
+        $value = null;
+        if (is_array($results) && array_key_exists('value', $results)) {
+            $value = $results['value'];
+        }
+
+        // did we get a message back from webdriver?
+        $message = null;
+        if (is_array($value) && array_key_exists('message', $value)) {
+            $message = $value['message'];
+        }
+
+        // did webdriver send us back an error?
+        if ($results['status'] != 0) {
+            // yes it did ... throw the appropriate exception from here
+            $className = $this->returnExceptionToThrow($results['status']);
+            throw new $className($results['status'], $message, $results);
+        }
+
+        // if we get here, return the results back to the caller
+        return array('value' => $value, 'info' => $info);
     }
 
-    $url = sprintf('%s%s', $this->url, $command);
-    if ($params && (is_int($params) || is_string($params))) {
-      $url .= '/' . $params;
+    /**
+     * The magic that converts a PHP method call into the HTTP request
+     * to webdriver
+     *
+     * @param  string $name      the name of the PHP method
+     * @param  array  $arguments the arguments passed to the PHP method
+     * @return array             the result returned from webdriver
+     */
+    public function __call($name, $arguments)
+    {
+        // make sure the argument count is legit
+        if (count($arguments) > 1) {
+            throw new Exception(
+                'Commands should have at most only one parameter,' .
+                ' which should be the JSON Parameter object'
+            );
+        }
+
+        // the start of the PHP method call tells us which HTTP verb
+        // we are going to use to talk to webdriver
+        if (preg_match('/^(get|post|delete)/', $name, $matches)) {
+            $http_verb = strtoupper($matches[0]);
+
+            $methods = $this->methods();
+            if (!in_array($http_verb, $methods[$webdriver_command])) {
+                throw new Exception(sprintf(
+                    '%s is not an available http method for the command %s.',
+                    $http_verb,
+                    $webdriver_command
+                ));
+            }
+        } else {
+            // special case - methods that look odd when prefixed with
+            // 'get' or 'post' or 'delete'. we use the methods() map
+            // to look these up
+            $webdriver_command = $name;
+            $http_verb = $this->getHttpVerb($webdriver_command);
+        }
+
+        // make the HTTP call using our curl wrapper
+        $results = $this->curl(
+            $http_verb,
+            '/' . $webdriver_command,
+            array_shift($arguments)
+        );
+
+        return $results['value'];
     }
 
-    $curl = curl_init($url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt(
-      $curl,
-      CURLOPT_HTTPHEADER,
-      array(
-        'Content-Type: application/json;charset=UTF-8',
-        'Accept: application/json'));
+    /**
+     * determine the HTTP verb to use for a given webdriver command
+     *
+     * @param  string $webdriver_command the webdriver command to use
+     * @return string                    the HTTP verb to use
+     */
+    private function getHttpVerb($webdriver_command)
+    {
+        $methods = $this->methods();
 
-    if ($http_method === 'POST') {
-      curl_setopt($curl, CURLOPT_POST, true);
-      if ($params && is_array($params)) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
-      }
-    } else if ($http_method == 'DELETE') {
-      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+        if (!isset($methods[$webdriver_command])) {
+            throw new Exception(sprintf(
+                '%s is not a valid webdriver command.',
+                $webdriver_command
+            ));
+        }
+
+        // the first element in the array is the default HTTP verb to use
+        return $methods[$webdriver_command][0];
     }
-
-    foreach ($extra_opts as $option => $value) {
-      curl_setopt($curl, $option, $value);
-    }
-
-    $raw_results = trim(WebDriverEnvironment::CurlExec($curl));
-    $info = curl_getinfo($curl);
-
-    if ($error = curl_error($curl)) {
-      $msg = sprintf(
-        'Curl error thrown for http %s to %s',
-        $http_method,
-        $url);
-      if ($params && is_array($params)) {
-        $msg .= sprintf(' with params: %s', json_encode($params));
-      }
-      throw new WebDriverCurlException($msg . "\n\n" . $error);
-    }
-    curl_close($curl);
-
-    $results = json_decode($raw_results, true);
-
-    $value = null;
-    if (is_array($results) && array_key_exists('value', $results)) {
-      $value = $results['value'];
-    }
-
-    $message = null;
-    if (is_array($value) && array_key_exists('message', $value)) {
-      $message = $value['message'];
-    }
-
-    self::throwException($results['status'], $message, $results);
-
-    return array('value' => $value, 'info' => $info);
-  }
-
-  public function __call($name, $arguments) {
-    if (count($arguments) > 1) {
-      throw new Exception(
-        'Commands should have at most only one parameter,' .
-        ' which should be the JSON Parameter object');
-    }
-
-    if (preg_match('/^(get|post|delete)/', $name, $matches)) {
-      $http_method = strtoupper($matches[0]);
-      $webdriver_command = strtolower(substr($name, strlen($http_method)));
-      $default_http_method = $this->getHTTPMethod($webdriver_command);
-      if ($http_method === $default_http_method) {
-        throw new Exception(sprintf(
-          '%s is the default http method for %s.  Please just call %s().',
-          $http_method,
-          $webdriver_command,
-          $webdriver_command));
-      }
-      $methods = $this->methods();
-      if (!in_array($http_method, $methods[$webdriver_command])) {
-        throw new Exception(sprintf(
-          '%s is not an available http method for the command %s.',
-          $http_method,
-          $webdriver_command));
-      }
-    } else {
-      $webdriver_command = $name;
-      $http_method = $this->getHTTPMethod($webdriver_command);
-    }
-
-    $results = $this->curl(
-      $http_method,
-      '/' . $webdriver_command,
-      array_shift($arguments));
-
-    return $results['value'];
-  }
-
-  private function getHTTPMethod($webdriver_command) {
-    if (!array_key_exists($webdriver_command, $this->methods())) {
-      throw new Exception(sprintf(
-        '%s is not a valid webdriver command.',
-        $webdriver_command));
-    }
-
-    $methods = $this->methods();
-    $http_methods = (array) $methods[$webdriver_command];
-    return array_shift($http_methods);
-  }
 }

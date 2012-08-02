@@ -1,5 +1,6 @@
 <?php
 // Copyright 2004-present Facebook. All Rights Reserved.
+// Copyright 2012-present MediaSift Ltd. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,136 +14,155 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-final class WebDriverSession extends WebDriverContainer {
-  protected function methods() {
-    return array(
-      'url' => 'GET', // for POST, use open($url)
-      'forward' => 'POST',
-      'back' => 'POST',
-      'refresh' => 'POST',
-      'execute' => 'POST',
-      'execute_async' => 'POST',
-      'screenshot' => 'GET',
-      'window_handle' => 'GET',
-      'window_handles' => 'GET',
-      'frame' => 'POST',
-      'source' => 'GET',
-      'title' => 'GET',
-      'keys' => 'POST',
-      'orientation' => array('GET', 'POST'),
-      'alert_text' => array('GET', 'POST'),
-      'accept_alert' => 'POST',
-      'dismiss_alert' => 'POST',
-      'moveto' => 'POST',
-      'click' => 'POST',
-      'buttondown' => 'POST',
-      'buttonup' => 'POST',
-      'doubleclick' => 'POST',
-    );
-  }
+namespace DataSift\WebDriver;
 
-  // /session/:sessionId/url (POST)
-  public function open($url) {
-    $this->curl('POST', '/url', array('url' => $url));
-    return $this;
-  }
+class WebDriverSession extends WebDriverContainer
+{
+    protected function methods()
+    {
+        return array(
+            'url' => 'GET', // for POST, use open($url)
+            'forward' => 'POST',
+            'back' => 'POST',
+            'refresh' => 'POST',
+            'execute' => 'POST',
+            'execute_async' => 'POST',
+            'screenshot' => 'GET',
+            'window_handle' => 'GET',
+            'window_handles' => 'GET',
+            'frame' => 'POST',
+            'source' => 'GET',
+            'title' => 'GET',
+            'keys' => 'POST',
+            'orientation' => array('GET', 'POST'),
+            'alert_text' => array('GET', 'POST'),
+            'accept_alert' => 'POST',
+            'dismiss_alert' => 'POST',
+            'moveto' => 'POST',
+            'click' => 'POST',
+            'buttondown' => 'POST',
+            'buttonup' => 'POST',
+            'doubleclick' => 'POST',
+        );
+    }
 
-  // /session/:sessionId (GET)
-  public function capabilities() {
-    $result = $this->curl('GET', '');
-    return $result['value'];
-  }
+    // /session/:sessionId/url (POST)
+    public function open($url)
+    {
+        $this->curl('POST', '/url', array('url' => $url));
+        return $this;
+    }
 
-  // /session/:sessionId (DELETE)
-  public function close() {
-    $result = $this->curl('DELETE', '');
-    return $result['value'];
-  }
+    // /session/:sessionId (GET)
+    public function capabilities()
+    {
+        $result = $this->curl('GET', '');
+        return $result['value'];
+    }
 
-  // /session/:sessionId/cookie (GET)
-  public function getAllCookies() {
-    $result = $this->curl('GET', '/cookie');
-    return $result['value'];
-  }
+    // /session/:sessionId (DELETE)
+    public function close()
+    {
+        $result = $this->curl('DELETE', '');
+        return $result['value'];
+    }
 
-  // /session/:sessionId/cookie (POST)
-  public function setCookie($cookie_json) {
-    $this->curl('POST', '/cookie', array('cookie' => $cookie_json));
-    return $this;
-  }
+    // /session/:sessionId/cookie (GET)
+    public function getAllCookies()
+    {
+        $result = $this->curl('GET', '/cookie');
+        return $result['value'];
+    }
 
-  // /session/:sessionId/cookie (DELETE)
-  public function deleteAllCookies() {
-    $this->curl('DELETE', '/cookie');
-    return $this;
-  }
+    // /session/:sessionId/cookie (POST)
+    public function setCookie($cookie_json)
+    {
+        $this->curl('POST', '/cookie', array('cookie' => $cookie_json));
+        return $this;
+    }
 
-  // /session/:sessionId/cookie/:name (DELETE)
-  public function deleteCookie($cookie_name) {
-    $this->curl('DELETE', '/cookie/' . $cookie_name);
-    return $this;
-  }
+    // /session/:sessionId/cookie (DELETE)
+    public function deleteAllCookies()
+    {
+        $this->curl('DELETE', '/cookie');
+        return $this;
+    }
 
-  public function timeouts() {
-    $item = new WebDriverSimpleItem($this->url . '/timeouts');
-    return $item->setMethods(array(
-      'async_script' => 'POST',
-      'implicit_wait' => 'POST',
-    ));
-  }
+    // /session/:sessionId/cookie/:name (DELETE)
+    public function deleteCookie($cookie_name)
+    {
+        $this->curl('DELETE', '/cookie/' . $cookie_name);
+        return $this;
+    }
 
-  public function ime() {
-    $item = new WebDriverSimpleItem($this->url . '/ime');
-    return $item->setMethods(array(
-      'available_engines' => 'GET',
-      'active_engine' => 'GET',
-      'activated' => 'GET',
-      'deactivate' => 'POST',
-      'activate' => 'POST',
-    ));
-  }
+    public function timeouts()
+    {
+        $item = new WebDriverSimpleItem($this->url . '/timeouts');
+        return $item->setMethods(array(
+            'async_script' => 'POST',
+            'implicit_wait' => 'POST',
+        ));
+    }
 
-  // /session/:sessionId/window (DELETE)
-  public function deleteWindow() {
-    $this->curl('DELETE', '/window');
-    return $this;
-  }
+    public function ime()
+    {
+        $item = new WebDriverSimpleItem($this->url . '/ime');
+        return $item->setMethods(array(
+            'available_engines' => 'GET',
+            'active_engine' => 'GET',
+            'activated' => 'GET',
+            'deactivate' => 'POST',
+            'activate' => 'POST',
+        ));
+    }
 
-  // /session/:sessionId/window (POST)
-  public function focusWindow($name) {
-    $this->curl('POST', '/window', array('name' => $name));
-    return $this;
-  }
+    // /session/:sessionId/window (DELETE)
+    public function deleteWindow()
+    {
+        $this->curl('DELETE', '/window');
+        return $this;
+    }
 
-  public function window($window_handle = 'current') {
-    $item = new WebDriverSimpleItem($this->url . '/window/' . $window_handle);
-    return $item->setMethods(array(
-      'size' => array('GET', 'POST'),
-      'position' => array('GET', 'POST'),
-    ));
-  }
+    // /session/:sessionId/window (POST)
+    public function focusWindow($name)
+    {
+        $this->curl('POST', '/window', array('name' => $name));
+        return $this;
+    }
 
-  // /session/:sessionId/element/active (POST)
-  public function activeElement() {
-    $results = $this->curl('POST', '/element/active');
-    return $this->webDriverElement($results['value']);
-  }
+    public function window($window_handle = 'current')
+    {
+        $item = new WebDriverSimpleItem($this->url . '/window/' . $window_handle);
+        return $item->setMethods(array(
+            'size' => array('GET', 'POST'),
+            'position' => array('GET', 'POST'),
+        ));
+    }
 
-  public function touch() {
-    $item = new WebDriverSimpleItem($this->url . '/touch');
-    return $item->setMethods(array(
-      'click' => 'POST',
-      'down' => 'POST',
-      'up' => 'POST',
-      'move' => 'POST',
-      'scroll' => 'POST',
-      'doubleclick' => 'POST',
-      'longclick' => 'POST',
-      'flick' => 'POST',
-    ));
-  }
+    // /session/:sessionId/element/active (POST)
+    public function activeElement()
+    {
+        $results = $this->curl('POST', '/element/active');
+        return $this->webDriverElement($results['value']);
+    }
 
-  protected function getElementPath($element_id) {
-    return sprintf('%s/element/%s', $this->url, $element_id);
-  }
+    public function touch()
+    {
+        $item = new WebDriverSimpleItem($this->url . '/touch');
+        return $item->setMethods(array(
+            'click' => 'POST',
+            'down' => 'POST',
+            'up' => 'POST',
+            'move' => 'POST',
+            'scroll' => 'POST',
+            'doubleclick' => 'POST',
+            'longclick' => 'POST',
+            'flick' => 'POST',
+        ));
+    }
+
+    protected function getElementPath($element_id)
+    {
+        return sprintf('%s/element/%s', $this->url, $element_id);
+    }
 }
