@@ -1,7 +1,7 @@
 php-webdriver
 =============
 
-This library is a client for Selenium WebDriver.  It is forked from [Facebook's php-webdriver project](https://github.com/facebook/php-webdriver).  The main changes are bug fixes, PSR0-autoloading support, and publishing it as a PEAR package (and as a Composer package soon!).
+This library is a client for Selenium WebDriver.  It is forked from [Facebook's php-webdriver project](https://github.com/facebook/php-webdriver).  The main changes are bug fixes, PSR0-autoloading support, and publishing it as a PEAR package.
 
 Internally, it is implemented as a very thin wrapper around the [JsonWireProtocol ](http://code.google.com/p/selenium/wiki/JsonWireProtocol) that your code needs to use
 
@@ -34,7 +34,7 @@ If you are creating a component that relies on php-webdriver, please make sure t
 Usage
 -----
 
-For now, refer to the original documentation from [Facebook's php-webdriver project](https://github.com/facebook/php-webdriver).  We hope to publish better documentation when time allows.
+For now, refer to the original documentation from [Facebook's php-webdriver project](https://github.com/facebook/php-webdriver), and to the [WebDriver JsonWireProtocol document](http://code.google.com/p/selenium/wiki/JsonWireProtocol).  We hope to publish better documentation when time allows.
 
 Development Environment
 -----------------------

@@ -1,5 +1,4 @@
 <?php
-// Copyright 2004-present Facebook. All Rights Reserved.
 // Copyright 2012-present MediaSift Ltd. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,17 +15,15 @@
 
 namespace DataSift\WebDriver;
 
-class WebDriverSimpleItem extends WebDriverBase
+use Exception;
+
+/**
+ * A helper class to allow us to test the methods in the abstract class
+ * WebDriverBase
+ */
+class WebDriverBaseForTests extends WebDriverBase
 {
-    private $_methods = array();
-
-    protected function methods()
-    {
-        return $this->_methods;
-    }
-
-    public function setMethods($methods) {
-        $this->_methods = $methods;
-        return $this;
-    }
+	protected function methods() {
+		return array();
+	}
 }

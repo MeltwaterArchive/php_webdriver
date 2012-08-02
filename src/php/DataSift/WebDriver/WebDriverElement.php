@@ -1,5 +1,6 @@
 <?php
 // Copyright 2004-present Facebook. All Rights Reserved.
+// Copyright 2012-present MediaSift Ltd. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,38 +14,61 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-final class WebDriverElement extends WebDriverContainer {
-  protected function methods() {
-    return array(
-      'click' => 'POST',
-      'submit' => 'POST',
-      'text' => 'GET',
-      'value' => 'POST',
-      'name' => 'GET',
-      'clear' => 'POST',
-      'selected' => 'GET',
-      'enabled' => 'GET',
-      'attribute' => 'GET',
-      'equals' => 'GET',
-      'displayed' => 'GET',
-      'location' => 'GET',
-      'location_in_view' => 'GET',
-      'size' => 'GET',
-      'css' => 'GET',
-    );
-  }
+namespace DataSift\WebDriver;
 
-  private $id;
-  public function __construct($url, $id) {
-    $this->id = $id;
-    parent::__construct($url);
-  }
+class WebDriverElement extends WebDriverContainer
+{
+    // the ID of this element
+    private $id;
 
-  public function getID() {
-    return $this->id;
-  }
+    /**
+     * constructor
+     *
+     * @param string $url the URL of this element
+     * @param string $id  the ID of this element
+     */
+    public function __construct($url, $id)
+    {
+        $this->id = $id;
+        parent::__construct($url);
+    }
 
-  protected function getElementPath($element_id) {
-    return preg_replace(sprintf('/%s$/', $this->id), $element_id, $this->url);
-  }
+    /**
+     * A list of the webdriver methods that this class supports
+     *
+     * @return array the methods and their supported HTTP verbs
+     */
+    protected function methods()
+    {
+        return array(
+            'click' => 'POST',
+            'submit' => 'POST',
+            'text' => 'GET',
+            'value' => 'POST',
+            'name' => 'GET',
+            'clear' => 'POST',
+            'selected' => 'GET',
+            'enabled' => 'GET',
+            'attribute' => 'GET',
+            'equals' => 'GET',
+            'displayed' => 'GET',
+            'location' => 'GET',
+            'location_in_view' => 'GET',
+            'size' => 'GET',
+            'css' => 'GET',
+        );
+    }
+
+    /**
+     * get the ID of this element
+     *
+     * @return string the ID according to webdriver
+     */
+    public function getID() {
+        return $this->id;
+    }
+
+    protected function getElementPath($element_id) {
+        return preg_replace(sprintf('/%s$/', $this->id), $element_id, $this->url);
+    }
 }

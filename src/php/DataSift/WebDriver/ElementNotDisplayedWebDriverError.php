@@ -1,5 +1,6 @@
 <?php
 // Copyright 2004-present Facebook. All Rights Reserved.
+// Copyright 2012-present MediaSift Ltd. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,13 +14,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// For security reasons some enterprises don't allow the use of some built-in
-// php functions.  This class is meant to be a proxy for these functions.
-// Modify these as necessary for your enviroment, and then .gitignore this file
-// so you can still easily git pull other changes from the main github repo.
+namespace DataSift\WebDriver;
 
-final class WebDriverEnvironment {
-  public static function CurlExec($ch) {
-    return curl_exec($ch);
-  }
-}
+class ElementNotDisplayedWebDriverError extends WebDriverException {}

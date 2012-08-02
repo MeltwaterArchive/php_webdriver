@@ -16,17 +16,24 @@
 
 namespace DataSift\WebDriver;
 
-class WebDriverSimpleItem extends WebDriverBase
+use Exception;
+
+/**
+ * Base class for all of the exceptions that can occur when webdriver
+ * tells us it ran into a problem
+ */
+abstract class WebDriverException extends Exception
 {
-    private $_methods = array();
+	private $results;
 
-    protected function methods()
-    {
-        return $this->_methods;
-    }
+  	public function __construct($code, $message, $results = null)
+  	{
+    	parent::__construct($message, $code);
+    	$this->results = $results;
+  	}
 
-    public function setMethods($methods) {
-        $this->_methods = $methods;
-        return $this;
-    }
+  	public function getResults()
+  	{
+    	return $this->results;
+  	}
 }

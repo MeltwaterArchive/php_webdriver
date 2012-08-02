@@ -16,17 +16,4 @@
 
 namespace DataSift\WebDriver;
 
-class WebDriverSimpleItem extends WebDriverBase
-{
-    private $_methods = array();
-
-    protected function methods()
-    {
-        return $this->_methods;
-    }
-
-    public function setMethods($methods) {
-        $this->_methods = $methods;
-        return $this;
-    }
-}
+class NoSuchCollectionWebDriverError extends WebDriverException {}
