@@ -68,7 +68,42 @@ class WebDriverElement extends WebDriverContainer
         return $this->id;
     }
 
+    public function containsClass($class)
+    {
+        // get the class from this element
+        $elementClass = $this->attribute('class');
+
+        // turn it into something useful
+        $elementClasses = explode(' ', $elementClass);
+
+        // do the test
+        return in_array($class, $elementClasses);
+    }
+
+    public function type($text)
+    {
+        return $this->value(array('value' => $this->convertTextForTyping($text)));
+    }
+
+    public function typeSpecial($text)
+    {
+        $params = '{"value": ["' . $text . '"]}';
+        return $this->value($params);
+    }
+
     protected function getElementPath($element_id) {
         return preg_replace(sprintf('/%s$/', $this->id), $element_id, $this->url);
+    }
+
+    protected function convertTextForTyping($text)
+    {
+        $len = strlen($text);
+        $return = array();
+
+        for($i = 0; $i < $len; $i++) {
+            $return[] = $text{$i};
+        }
+
+        return $return;
     }
 }

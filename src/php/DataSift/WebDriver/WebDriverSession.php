@@ -16,7 +16,7 @@
 
 namespace DataSift\WebDriver;
 
-class WebDriverSession extends WebDriverContainer
+class WebDriverSession extends WebDriverHelperContainer
 {
     protected function methods()
     {
@@ -28,9 +28,9 @@ class WebDriverSession extends WebDriverContainer
             'execute' => 'POST',
             'execute_async' => 'POST',
             'screenshot' => 'GET',
+            'frame' => 'POST',
             'window_handle' => 'GET',
             'window_handles' => 'GET',
-            'frame' => 'POST',
             'source' => 'GET',
             'title' => 'GET',
             'keys' => 'POST',
@@ -164,5 +164,17 @@ class WebDriverSession extends WebDriverContainer
     protected function getElementPath($element_id)
     {
         return sprintf('%s/element/%s', $this->url, $element_id);
+    }
+
+    // ====================================================================
+    //
+    // HELPER METHODS
+    //
+    // --------------------------------------------------------------------
+
+    public function getLocation()
+    {
+        $location = $this->url();
+        return new HttpAddress($location);
     }
 }

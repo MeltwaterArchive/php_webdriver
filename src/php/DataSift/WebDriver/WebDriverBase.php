@@ -145,7 +145,7 @@ abstract class WebDriverBase
 
         // determine the URL we are posting to
         $url = sprintf('%s%s', $this->url, $command);
-        if ($params && (is_int($params) || is_string($params))) {
+        if ($http_method == 'GET' && $params && (is_int($params) || is_string($params))) {
             $url .= '/' . $params;
         }
 
@@ -163,8 +163,14 @@ abstract class WebDriverBase
         if ($http_method === 'POST') {
             curl_setopt($curl, CURLOPT_POST, true);
 
-            if ($params && is_array($params)) {
-                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
+            if ($params) {
+                if (is_array($params)) {
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
+                }
+                else {
+                    // assume they've already been encoded
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+                }
             }
         }
         else if ($http_method == 'DELETE') {
@@ -263,6 +269,7 @@ abstract class WebDriverBase
         }
 
         // make the HTTP call using our curl wrapper
+        echo "$http_verb /$webdriver_command\n";
         $results = $this->curl(
             $http_verb,
             '/' . $webdriver_command,
@@ -290,6 +297,6 @@ abstract class WebDriverBase
         }
 
         // the first element in the array is the default HTTP verb to use
-        return $methods[$webdriver_command][0];
+        return $methods[$webdriver_command];
     }
 }

@@ -46,6 +46,7 @@ abstract class WebDriverContainer extends WebDriverBase
         catch (NoSuchElementWebDriverError $e) {
             // the element does not exist
             throw new NoSuchElementWebDriverError(
+                500,
                 sprintf(
                     'Element not found with %s, %s',
                     $using,
@@ -94,6 +95,12 @@ abstract class WebDriverContainer extends WebDriverBase
 
         // if we get here, then we can return the set of elements back
         // to the caller :)
+
+        // if (!(is_array($results['value'])))
+        // {
+        //     var_dump($results);
+        // }
+
         return array_filter(array_map(
             array($this, 'webDriverElement'), $results['value'])
         );
