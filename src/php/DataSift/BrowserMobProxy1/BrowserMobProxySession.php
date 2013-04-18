@@ -1,23 +1,43 @@
 <?php
-// Copyright 2012-present MediaSift Ltd. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 
-namespace DataSift\BrowserMobProxy;
+/**
+ * BrowserMobProxy - Client for browsermob-proxy
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @category  Libraries
+ * @package   BrowserMobProxy1
+ * @author    Stuart Herbert <stuart.herbert@datasift.com>
+ * @copyright 2012 MediaSift Ltd.
+ * @license   http://www.apache.org/licenses/LICENSE-2.0
+ * @link      http://www.datasift.com
+ */
 
-use Exception;
-use DataSift\HttpArchive\HttpArchive;
-use DataSift\WebDriver\HttpAddress;
+namespace DataSift\BrowserMobProxy1;
+
+use DataSift\HttpArchive1\HttpArchive1;
+use DataSift\Stone1\HttpLib\HttpAddress;
+
+/**
+ * The API for interacting with a browsermob-proxy session created by
+ * BrowserMobProxyClient
+ *
+ * @category Libraries
+ * @package  BrowserMobProxy1
+ * @author   Stuart Herbert <stuart.herbert@datasift.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0
+ * @link     http://www.datasift.com
+ */
 
 class BrowserMobProxySession extends BrowserMobProxyBase
 {
@@ -58,8 +78,10 @@ class BrowserMobProxySession extends BrowserMobProxyBase
     }
 
     /**
-     * Returns the config information that needs to be given to
-     * @return [type] [description]
+     * Returns the config information that needs to be given to webdriver
+     * to make it use browsermob-proxy
+     *
+     * @return array
      */
     public function getWebDriverProxyConfig()
     {
@@ -119,6 +141,8 @@ class BrowserMobProxySession extends BrowserMobProxyBase
      * @param array(string => string) $headers
      *   a list of headers to inject, with the array key being the name
      *   of the header, and the array value being the value of the header
+     *
+     * @return void
      */
     public function setHeaders($headers)
     {
@@ -131,6 +155,15 @@ class BrowserMobProxySession extends BrowserMobProxyBase
         );
     }
 
+    /**
+     * remove a header from the list of headers that browsermob-proxy
+     * injects for us
+     *
+     * @param string
+     *        the header to remove
+     *
+     * @return void
+     */
     public function removeHeader($name) {
         $this->requireOpenConnection();
         $this->requireFeature('headerGetDelete');
@@ -141,6 +174,11 @@ class BrowserMobProxySession extends BrowserMobProxyBase
         );
     }
 
+    /**
+     * remove all of the headers that browsermob-proxy injects for us
+     *
+     * @return void
+     */
     public function removeAllHeaders() {
         $this->requireOpenConnection();
         $this->requireFeature('headerGetDelete');
@@ -151,6 +189,14 @@ class BrowserMobProxySession extends BrowserMobProxyBase
         );
     }
 
+    /**
+     * get the value of a header that browsermob-proxy injects for us
+     *
+     * @param  string $name
+     *         name of the header to retrieve
+     * @return string
+     *         value of the header
+     */
     public function getHeader($name) {
         $this->requireOpenConnection();
         $this->requireFeature('headerGetDelete');
@@ -163,6 +209,16 @@ class BrowserMobProxySession extends BrowserMobProxyBase
         return $response;
     }
 
+    /**
+     * enable HTTP BASIC auth
+     *
+     * @param string $domain
+     *        the DNS domain to send HTTP BASIC auth info to
+     * @param $username
+     *        the username to send to the web server
+     * @param string $password
+     *        the password to send to the web server
+     */
     public function setHttpBasicAuth($domain, $username, $password) {
         $this->requireOpenConnection();
         $this->requireFeature('httpBasicAuth');
@@ -203,7 +259,7 @@ class BrowserMobProxySession extends BrowserMobProxyBase
     protected function requireOpenConnection()
     {
         if ($this->closed) {
-            throw new BrowserMobProxyClosedSessionException();
+            throw new E5xx_BrowserMobProxySessionIsClosed();
         }
     }
 }

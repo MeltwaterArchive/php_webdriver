@@ -1,23 +1,41 @@
 <?php
-// Copyright 2012-present MediaSift Ltd. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 
-namespace DataSift\BrowserMobProxy;
+/**
+ * BrowserMobProxy - Client for browsermob-proxy
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @category  Libraries
+ * @package   BrowserMobProxy1
+ * @author    Stuart Herbert <stuart.herbert@datasift.com>
+ * @copyright 2012 MediaSift Ltd.
+ * @license   http://www.apache.org/licenses/LICENSE-2.0
+ * @link      http://www.datasift.com
+ */
 
-use Exception;
-use RuntimeException;
+namespace DataSift\BrowserMobProxy1;
+
 use stdClass;
+
+/**
+ * Base class for all classes that talk to browsermob-proxy
+ *
+ * @category Libraries
+ * @package  BrowserMobProxy1
+ * @author   Stuart Herbert <stuart.herbert@datasift.com>
+ * @license  http://www.apache.org/licenses/LICENSE-2.0
+ * @link     http://www.datasift.com
+ */
 
 class BrowserMobProxyBase
 {
@@ -186,7 +204,7 @@ class BrowserMobProxyBase
             if ($params && is_array($params)) {
                 $msg .= sprintf(' with params: %s', json_encode($params));
             }
-            throw new BrowserMobProxyCurlException($msg . "\n\n" . $error);
+            throw new E5xx_BrowserMobProxyCurlException($msg . "\n\n" . $error);
         }
         // we're done with curl for this request
         curl_close($curl);
@@ -205,7 +223,7 @@ class BrowserMobProxyBase
         }
         else if (isset($results->error) && $results->error) {
             // there was an error?
-            $e = new RuntimeException('Error returned by browsermob-proxy', 500);
+            $e = new E5xx_BrowserMobProxyCurlException(json_encode($results->data));
             $e->data = $results->data;
 
             throw $e;
@@ -249,7 +267,7 @@ class BrowserMobProxyBase
         if (!isset($this->features->$name))
         {
             // no it does not
-            throw new RuntimeException('Unsupported feature: ' . $name);
+            throw new E5xx_UnsupportedFeature($name);
         }
 
         // is the feature currently enabled?
@@ -272,7 +290,7 @@ class BrowserMobProxyBase
         // did it work?
         if ($this->hasFeatureEnabled($name)) {
             // no, it did not
-            throw new RuntimeException('Failed to disable feature: ' . $name);
+            throw new E5xx_FeatureDisableFail($name);
         }
     }
 
@@ -282,7 +300,7 @@ class BrowserMobProxyBase
         if (!isset($this->features->$name))
         {
             // no, it does not
-            throw new RuntimeException('Unsupported feature: ' . $name);
+            throw new E5xx_UnsupportedFeature($name);
         }
 
         // enable the feature
@@ -298,7 +316,7 @@ class BrowserMobProxyBase
         // did it work?
         if (!$this->hasFeatureEnabled($name)) {
             // no, it did not
-            throw new RuntimeException('Failed to enable feature: ' . $name);
+            throw new E5xx_FeatureEnableFail($name);
         }
 
         // all done
@@ -328,7 +346,7 @@ class BrowserMobProxyBase
     {
         if (!$this->hasFeature($name))
         {
-            throw new RuntimeException('Unsupported feature: ' . $name);
+            throw new E5xx_UnsupportedFeature($name);
         }
 
         if (!$this->hasFeatureEnabled($name))

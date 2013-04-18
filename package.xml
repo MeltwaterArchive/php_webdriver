@@ -5,14 +5,14 @@
     http://pear.php.net/dtd/package-2.0.xsd">
   <name>${project.name}</name>
   <channel>${project.channel}</channel>
-  <summary>Summary goes here</summary>
+  <summary>Interface to Selenium 2 aka WebDriver</summary>
   <description>
-    Description goes here
+    This library is a client for Selenium WebDriver.  It is forked from Facebook's php-webdriver project.  The main changes are bug fixes, PSR0-autoloading support, and publishing it as a PEAR package.
   </description>
   <lead>
-    <name>Your name</name>
-    <user>Anything goes here</user>
-    <email>Your email address</email>
+    <name>Stuart Herbert</name>
+    <user>stuart</user>
+    <email>stuart.herbert@datasift.com</email>
     <active>yes</active>
   </lead>
   <date>${build.date}</date>
@@ -43,10 +43,16 @@ ${contents}
         <min>1.9.4</min>
       </pearinstaller>
       <package>
-        <name>Autoloader</name>
+        <name>Autoloader4</name>
         <channel>pear.phix-project.org</channel>
-        <min>3.0.0</min>
-        <max>3.999.9999</max>
+        <min>4.0.0</min>
+        <max>4.999.9999</max>
+      </package>
+      <package>
+        <name>Stone1</name>
+        <channel>datasift.github.io/pear</channel>
+        <min>1.0.0</min>
+        <max>1.999.9999</max>
       </package>
     </required>
   </dependencies>
