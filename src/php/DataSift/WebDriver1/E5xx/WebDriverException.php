@@ -27,9 +27,10 @@
 
 namespace DataSift\WebDriver1;
 
+use DataSift\Stone1\ExceptionsLib\Exxx_Exception;
+
 /**
- * Quick and dirty class used for creating on-the-fly entities that aren't
- * full DOM elements
+ * Base class for all WebDriver exceptions
  *
  * @category Libraries
  * @package  WebDriver1
@@ -37,17 +38,7 @@ namespace DataSift\WebDriver1;
  * @link     http://www.datasift.com
  * @link     http://facebook.com
  */
-class WebDriverSimpleItem extends WebDriverBase
+
+class E5xx_WebDriverException extends Exxx_Exception
 {
-    private $_methods = array();
-
-    protected function getMethods()
-    {
-        return $this->_methods;
-    }
-
-    public function setMethods($methods) {
-        $this->_methods = $methods;
-        return $this;
-    }
 }

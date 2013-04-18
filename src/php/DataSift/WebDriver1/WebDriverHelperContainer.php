@@ -1,41 +1,55 @@
 <?php
-// Copyright (c) 2012 Konstantin Kudryashov <ever.zet@gmail.com>
-// Copyright 2012-present MediaSift Ltd. All Rights Reserved.
-//
-// Permission is hereby granted, free of charge, to any person
-// obtaining a copy of this software and associated documentation
-// files (the "Software"), to deal in the Software without
-// restriction, including without limitation the rights to use,
-// copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following
-// conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-// OTHER DEALINGS IN THE SOFTWARE.
 
-namespace DataSift\WebDriver;
+/**
+ * WebDriver - Client for Selenium 2 (a.k.a WebDriver)
+ *
+ * Copyright (c) 2012 Konstantin Kudryashov <ever.zet@gmail.com>
+ * Copyright (c) 2012-present MediaSift Ltd
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @category  Libraries
+ * @package   WebDriver1
+ * @author    Konstantin Kudryashov <ever.zet@gmail.com>
+ * @author    Stuart Herbert <stuart.herbert@datasift.com>
+ * @copyright 2012 Konstantin Kudryashov
+ * @copyright 2012-present MediaSift Ltd
+ * @license   MIT
+ * @link      http://www.datasift.com
+ */
 
+namespace DataSift\WebDriver1;
+
+/**
+ * Additional helper methods for interacting with the DOM, borrowed from
+ * and inspired by Mink's Selenium2Driver
+ *
+ * @category Libraries
+ * @package  WebDriver1
+ * @license  MIT
+ * @link     http://www.datasift.com
+ */
 abstract class WebDriverHelperContainer extends WebDriverContainer
 {
-    // ====================================================================
-    //
-    // HELPER METHODS
-    //
-    // Taken from, or inspired by, Mink's Selenium2Driver. Also aiming
-    // to replicate missing methods from Selenium 1.
-    //
-    // --------------------------------------------------------------------
-
     /**
      * Executes JS on a given element - pass in a js script string and {{ELEMENT}} will
      * be replaced with a reference to the result of the $xpath query
@@ -412,7 +426,6 @@ JS;
         $script = "Syn.trigger('keyup', $options, {{ELEMENT}})";
         $this->withSyn()->executeJsOnXpath($xpath, $script);
     }
-
 
     /**
      * Drag one element onto another.

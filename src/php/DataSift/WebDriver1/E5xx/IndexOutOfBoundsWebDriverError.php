@@ -28,8 +28,11 @@
 namespace DataSift\WebDriver1;
 
 /**
- * Quick and dirty class used for creating on-the-fly entities that aren't
- * full DOM elements
+ * Exception thrown when we attempt to access beyond the end of a list
+ * of some kind.
+ *
+ * I haven't seen this exception occur, so I don't know whether it's
+ * a user error or an internal WebDriver error
  *
  * @category Libraries
  * @package  WebDriver1
@@ -37,17 +40,10 @@ namespace DataSift\WebDriver1;
  * @link     http://www.datasift.com
  * @link     http://facebook.com
  */
-class WebDriverSimpleItem extends WebDriverBase
+
+class E5xx_IndexOutOfBoundsWebDriverError extends E5xx_WebDriverException
 {
-    private $_methods = array();
-
-    protected function getMethods()
-    {
-        return $this->_methods;
-    }
-
-    public function setMethods($methods) {
-        $this->_methods = $methods;
-        return $this;
-    }
+	public function __construct($msg) {
+		parent::__construct(400, $msg, $msg);
+	}
 }

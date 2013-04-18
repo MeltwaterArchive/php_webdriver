@@ -1,23 +1,40 @@
 <?php
-// Copyright 2004-present Facebook. All Rights Reserved.
-// Copyright 2012-present MediaSift Ltd. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 
-namespace DataSift\WebDriver;
+/**
+ * WebDriver - Client for Selenium 2 (a.k.a WebDriver)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @category  Libraries
+ * @package   BrowserMobProxy1
+ * @author    Stuart Herbert <stuart.herbert@datasift.com>
+ * @copyright 2004-present Facebook
+ * @copyright 2012-present MediaSift Ltd
+ * @license   http://www.apache.org/licenses/LICENSE-2.0
+ * @link      http://www.datasift.com
+ */
 
-use Exception;
+namespace DataSift\WebDriver1;
 
+/**
+ * Base class for all classes that interact with the WebDriver
+ *
+ * @category Libraries
+ * @package  WebDriver1
+ * @license  http://www.apache.org/licenses/LICENSE-2.0
+ * @link     http://www.datasift.com
+ * @link     http://facebook.com
+ */
 abstract class WebDriverBase
 {
     /**
@@ -28,40 +45,40 @@ abstract class WebDriverBase
     public function returnExceptionToThrow($status_code)
     {
         static $map = array (
-            1  => 'IndexOutOfBoundsWebDriverError',
-            2  => 'NoCollectionWebDriverError',
-            3  => 'NoStringWebDriverError',
-            4  => 'NoStringLengthWebDriverError',
-            5  => 'NoStringWrapperWebDriverError',
-            6  => 'NoSuchDriverWebDriverError',
-            7  => 'NoSuchElementWebDriverError',
-            8  => 'NoSuchFrameWebDriverError',
-            9  => 'UnknownCommandWebDriverError',
-            10 => 'ObsoleteElementWebDriverError',
-            11 => 'ElementNotDisplayedWebDriverError',
-            12 => 'InvalidElementStateWebDriverError',
-            13 => 'UnhandledWebDriverError',
-            14 => 'ExpectedWebDriverError',
-            15 => 'ElementNotSelectableWebDriverError',
-            16 => 'NoSuchDocumentWebDriverError',
-            17 => 'UnexpectedJavascriptWebDriverError',
-            18 => 'NoScriptResultWebDriverError',
-            19 => 'XPathLookupWebDriverError',
-            20 => 'NoSuchCollectionWebDriverError',
-            21 => 'TimeOutWebDriverError',
-            22 => 'NullPointerWebDriverError',
-            23 => 'NoSuchWindowWebDriverError',
-            24 => 'InvalidCookieDomainWebDriverError',
-            25 => 'UnableToSetCookieWebDriverError',
-            26 => 'UnexpectedAlertOpenWebDriverError',
-            27 => 'NoAlertOpenWebDriverError',
-            28 => 'ScriptTimeoutWebDriverError',
-            29 => 'InvalidElementCoordinatesWebDriverError',
-            30 => 'IMENotAvailableWebDriverError',
-            31 => 'IMEEngineActivationFailedWebDriverError',
-            32 => 'InvalidSelectorWebDriverError',
-            33 => 'SessionNotCreatedWebDriverError',
-            34 => 'MoveTargetOutOfBoundsWebDriverError',
+            1  => 'E5xx_IndexOutOfBoundsWebDriverError',
+            2  => 'E5xx_NoCollectionWebDriverError',
+            3  => 'E5xx_NoStringWebDriverError',
+            4  => 'E5xx_NoStringLengthWebDriverError',
+            5  => 'E5xx_NoStringWrapperWebDriverError',
+            6  => 'E5xx_NoSuchDriverWebDriverError',
+            7  => 'E5xx_NoSuchElementWebDriverError',
+            8  => 'E5xx_NoSuchFrameWebDriverError',
+            9  => 'E5xx_UnknownCommandWebDriverError',
+            10 => 'E5xx_ObsoleteElementWebDriverError',
+            11 => 'E5xx_ElementNotDisplayedWebDriverError',
+            12 => 'E5xx_InvalidElementStateWebDriverError',
+            13 => 'E5xx_UnhandledWebDriverError',
+            14 => 'E5xx_ExpectedWebDriverError',
+            15 => 'E5xx_ElementNotSelectableWebDriverError',
+            16 => 'E5xx_NoSuchDocumentWebDriverError',
+            17 => 'E5xx_UnexpectedJavascriptWebDriverError',
+            18 => 'E5xx_NoScriptResultWebDriverError',
+            19 => 'E5xx_XPathLookupWebDriverError',
+            20 => 'E5xx_NoSuchCollectionWebDriverError',
+            21 => 'E5xx_TimeOutWebDriverError',
+            22 => 'E5xx_NullPointerWebDriverError',
+            23 => 'E5xx_NoSuchWindowWebDriverError',
+            24 => 'E5xx_InvalidCookieDomainWebDriverError',
+            25 => 'E5xx_UnableToSetCookieWebDriverError',
+            26 => 'E5xx_UnexpectedAlertOpenWebDriverError',
+            27 => 'E5xx_NoAlertOpenWebDriverError',
+            28 => 'E5xx_ScriptTimeoutWebDriverError',
+            29 => 'E5xx_InvalidElementCoordinatesWebDriverError',
+            30 => 'E5xx_IMENotAvailableWebDriverError',
+            31 => 'E5xx_IMEEngineActivationFailedWebDriverError',
+            32 => 'E5xx_InvalidSelectorWebDriverError',
+            33 => 'E5xx_SessionNotCreatedWebDriverError',
+            34 => 'E5xx_MoveTargetOutOfBoundsWebDriverError',
         );
 
         // did an error occur?
@@ -82,7 +99,7 @@ abstract class WebDriverBase
      * A list of the methods that the child class exposes to the user
      * @return array
      */
-    abstract protected function methods();
+    abstract protected function getMethods();
 
     /**
      * the URL of the webdriver server we are using
@@ -112,7 +129,7 @@ abstract class WebDriverBase
      * get the URL of the Selenium webdriver server we are talking to
      * @return string URL of the Selenium webdriver server
      */
-    public function getURL() {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -135,7 +152,7 @@ abstract class WebDriverBase
         // catch problems with the definition of allowed methods in
         // child classes
         if ($params && is_array($params) && $http_method !== 'POST') {
-            throw new Exception(sprintf(
+            throw new E5xx_BadMethodCallWebDriverError(sprintf(
                 'The http method called for %s is %s but it has to be POST' .
                 ' if you want to pass the JSON params %s',
                 $command,
@@ -198,7 +215,7 @@ abstract class WebDriverBase
             if ($params && is_array($params)) {
                 $msg .= sprintf(' with params: %s', json_encode($params));
             }
-            throw new WebDriverCurlException($msg . "\n\n" . $error);
+            throw new E5xx_WebDriverCurlException($msg . "\n\n" . $error);
         }
         // we're done with curl for this request
         curl_close($curl);
@@ -241,7 +258,7 @@ abstract class WebDriverBase
     {
         // make sure the argument count is legit
         if (count($arguments) > 1) {
-            throw new Exception(
+            throw new E5xx_BadMethodCallWebDriverError(
                 'Commands should have at most only one parameter,' .
                 ' which should be the JSON Parameter object'
             );
@@ -252,9 +269,9 @@ abstract class WebDriverBase
         if (preg_match('/^(get|post|delete)/', $name, $matches)) {
             $http_verb = strtoupper($matches[0]);
 
-            $methods = $this->methods();
+            $methods = $this->getMethods();
             if (!in_array($http_verb, $methods[$webdriver_command])) {
-                throw new Exception(sprintf(
+                throw new E5xx_BadMethodCallWebDriverError(sprintf(
                     '%s is not an available http method for the command %s.',
                     $http_verb,
                     $webdriver_command
@@ -287,10 +304,10 @@ abstract class WebDriverBase
      */
     private function getHttpVerb($webdriver_command)
     {
-        $methods = $this->methods();
+        $methods = $this->getMethods();
 
         if (!isset($methods[$webdriver_command])) {
-            throw new Exception(sprintf(
+            throw new E5xx_BadMethodCallWebDriverError(sprintf(
                 '%s is not a valid webdriver command.',
                 $webdriver_command
             ));

@@ -28,8 +28,8 @@
 namespace DataSift\WebDriver1;
 
 /**
- * Quick and dirty class used for creating on-the-fly entities that aren't
- * full DOM elements
+ * Exception thrown when we attempt to interact with an element that's
+ * very very shy.
  *
  * @category Libraries
  * @package  WebDriver1
@@ -37,17 +37,10 @@ namespace DataSift\WebDriver1;
  * @link     http://www.datasift.com
  * @link     http://facebook.com
  */
-class WebDriverSimpleItem extends WebDriverBase
+
+class E5xx_ElementNotSelectableWebDriverError extends E5xx_WebDriverException
 {
-    private $_methods = array();
-
-    protected function getMethods()
-    {
-        return $this->_methods;
-    }
-
-    public function setMethods($methods) {
-        $this->_methods = $methods;
-        return $this;
-    }
+	public function __construct($msg) {
+		parent::__construct(400, $msg, $msg);
+	}
 }
