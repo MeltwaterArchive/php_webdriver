@@ -27,9 +27,11 @@
 
 namespace DataSift\WebDriver;
 
+use PHPUnit_Framework_TestCase;
+
 /**
- * Exception thrown when a DOM element ends up in such a mess that
- * WebDriver can no longer make sense of it
+ * Exception thrown when we expect one of those annoying JavaScript
+ * alert() boxes to be open ... but it isn't
  *
  * @category Libraries
  * @package  WebDriver
@@ -38,9 +40,22 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_InvalidElementStateWebDriverError extends Exxx_WebDriverException
+class E4xx_NoAlertOpenWebDriverErrorTest extends PHPUnit_Framework_TestCase
 {
-	public function __construct($msg) {
-		parent::__construct(500, $msg, $msg);
+	/**
+	 * @covers DataSift\WebDriver\E4xx_NoAlertOpenWebDriverError::__construct
+	 */
+	public function testCanInstantiate()
+	{
+	    // ----------------------------------------------------------------
+	    // perform the change
+
+	    $obj = new E4xx_NoAlertOpenWebDriverError('oh dear');
+
+	    // ----------------------------------------------------------------
+	    // test the results
+
+	    $this->assertTrue($obj instanceof E4xx_NoAlertOpenWebDriverError);
 	}
+
 }

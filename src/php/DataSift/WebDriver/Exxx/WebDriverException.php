@@ -27,9 +27,10 @@
 
 namespace DataSift\WebDriver;
 
+use DataSift\Stone\ExceptionsLib\Exxx_Exception;
+
 /**
- * Exception thrown when a DOM element ends up in such a mess that
- * WebDriver can no longer make sense of it
+ * Base class for all WebDriver exceptions
  *
  * @category Libraries
  * @package  WebDriver
@@ -38,9 +39,6 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_InvalidElementStateWebDriverError extends Exxx_WebDriverException
+class Exxx_WebDriverException extends Exxx_Exception
 {
-	public function __construct($msg) {
-		parent::__construct(500, $msg, $msg);
-	}
 }

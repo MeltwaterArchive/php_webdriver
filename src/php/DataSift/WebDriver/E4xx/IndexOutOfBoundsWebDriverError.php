@@ -28,8 +28,11 @@
 namespace DataSift\WebDriver;
 
 /**
- * Exception thrown when a DOM element ends up in such a mess that
- * WebDriver can no longer make sense of it
+ * Exception thrown when we attempt to access beyond the end of a list
+ * of some kind.
+ *
+ * I haven't seen this exception occur, so I don't know whether it's
+ * a user error or an internal WebDriver error
  *
  * @category Libraries
  * @package  WebDriver
@@ -38,9 +41,9 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_InvalidElementStateWebDriverError extends Exxx_WebDriverException
+class E4xx_IndexOutOfBoundsWebDriverError extends Exxx_WebDriverException
 {
 	public function __construct($msg) {
-		parent::__construct(500, $msg, $msg);
+		parent::__construct(400, $msg, $msg);
 	}
 }

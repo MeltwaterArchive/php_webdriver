@@ -27,9 +27,11 @@
 
 namespace DataSift\WebDriver;
 
+use PHPUnit_Framework_TestCase;
+
 /**
- * Exception thrown when a DOM element ends up in such a mess that
- * WebDriver can no longer make sense of it
+ * Exception thrown when something has gone wrong inside WebDriver,
+ * and the WebDriver authors weren't expecting it to go wrong
  *
  * @category Libraries
  * @package  WebDriver
@@ -38,9 +40,22 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_InvalidElementStateWebDriverError extends Exxx_WebDriverException
+class E5xx_UnhandledWebDriverErrorTest extends PHPUnit_Framework_TestCase
 {
-	public function __construct($msg) {
-		parent::__construct(500, $msg, $msg);
+	/**
+	 * @covers DataSift\WebDriver\E5xx_UnhandledWebDriverError::__construct
+	 */
+	public function testCanInstantiate()
+	{
+	    // ----------------------------------------------------------------
+	    // perform the change
+
+	    $obj = new E5xx_UnhandledWebDriverError('oh dear');
+
+	    // ----------------------------------------------------------------
+	    // test the results
+
+	    $this->assertTrue($obj instanceof E5xx_UnhandledWebDriverError);
 	}
+
 }

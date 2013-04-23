@@ -28,8 +28,8 @@
 namespace DataSift\WebDriver;
 
 /**
- * Exception thrown when a DOM element ends up in such a mess that
- * WebDriver can no longer make sense of it
+ * Exception thrown when we attempt to drag an element to a set of
+ * co-ordinates that are outside the viewport (I think)
  *
  * @category Libraries
  * @package  WebDriver
@@ -38,9 +38,9 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_InvalidElementStateWebDriverError extends Exxx_WebDriverException
+class E4xx_InvalidElementCoordinatesWebDriverError extends Exxx_WebDriverException
 {
 	public function __construct($msg) {
-		parent::__construct(500, $msg, $msg);
+		parent::__construct(400, $msg, $msg);
 	}
 }

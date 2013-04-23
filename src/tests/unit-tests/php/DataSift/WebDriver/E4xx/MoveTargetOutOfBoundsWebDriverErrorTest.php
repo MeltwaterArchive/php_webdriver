@@ -27,9 +27,10 @@
 
 namespace DataSift\WebDriver;
 
+use PHPUnit_Framework_TestCase;
+
 /**
- * Exception thrown when a DOM element ends up in such a mess that
- * WebDriver can no longer make sense of it
+ * Exception thrown when we attempt to drag an element off the page
  *
  * @category Libraries
  * @package  WebDriver
@@ -38,9 +39,22 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_InvalidElementStateWebDriverError extends Exxx_WebDriverException
+class E4xx_MoveTargetOutOfBoundsWebDriverErrorTest extends PHPUnit_Framework_TestCase
 {
-	public function __construct($msg) {
-		parent::__construct(500, $msg, $msg);
+	/**
+	 * @covers DataSift\WebDriver\E4xx_MoveTargetOutOfBoundsWebDriverError::__construct
+	 */
+	public function testCanInstantiate()
+	{
+	    // ----------------------------------------------------------------
+	    // perform the change
+
+	    $obj = new E4xx_MoveTargetOutOfBoundsWebDriverError('oh dear');
+
+	    // ----------------------------------------------------------------
+	    // test the results
+
+	    $this->assertTrue($obj instanceof E4xx_MoveTargetOutOfBoundsWebDriverError);
 	}
+
 }

@@ -28,8 +28,9 @@
 namespace DataSift\WebDriver;
 
 /**
- * Exception thrown when a DOM element ends up in such a mess that
- * WebDriver can no longer make sense of it
+ * Exception thrown when we attempt to launch a WebDriver driver
+ * (God, isn't that confusing?!? - it's the adapted between Selenium and
+ * the specific browser that we want to control) that does not exist
  *
  * @category Libraries
  * @package  WebDriver
@@ -38,9 +39,9 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_InvalidElementStateWebDriverError extends Exxx_WebDriverException
+class E4xx_NoSuchDriverWebDriverError extends Exxx_WebDriverException
 {
 	public function __construct($msg) {
-		parent::__construct(500, $msg, $msg);
+		parent::__construct(400, $msg, $msg);
 	}
 }

@@ -40,6 +40,6 @@ namespace DataSift\WebDriver;
 class E5xx_BadMethodCallWebDriverError extends Exxx_WebDriverException
 {
 	public function __construct($msg) {
-		parent::__construct($msg, $msg);
+		parent::__construct(500, $msg, $msg);
 	}
 }

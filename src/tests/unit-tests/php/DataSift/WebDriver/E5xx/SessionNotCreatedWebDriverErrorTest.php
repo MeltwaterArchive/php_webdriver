@@ -27,9 +27,14 @@
 
 namespace DataSift\WebDriver;
 
+use PHPUnit_Framework_TestCase;
+
 /**
- * Exception thrown when a DOM element ends up in such a mess that
- * WebDriver can no longer make sense of it
+ * Exception thrown when WebDriver hasn't created the session that we
+ * asked for.
+ *
+ * This should only occur when there's a problem inside WebDriver, or
+ * inside the browser that WebDriver is trying to control.
  *
  * @category Libraries
  * @package  WebDriver
@@ -38,9 +43,22 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_InvalidElementStateWebDriverError extends Exxx_WebDriverException
+class E5xx_SessionNotCreatedWebDriverErrorTest extends PHPUnit_Framework_TestCase
 {
-	public function __construct($msg) {
-		parent::__construct(500, $msg, $msg);
+	/**
+	 * @covers DataSift\WebDriver\E5xx_SessionNotCreatedWebDriverError::__construct
+	 */
+	public function testCanInstantiate()
+	{
+	    // ----------------------------------------------------------------
+	    // perform the change
+
+	    $obj = new E5xx_SessionNotCreatedWebDriverError('oh dear');
+
+	    // ----------------------------------------------------------------
+	    // test the results
+
+	    $this->assertTrue($obj instanceof E5xx_SessionNotCreatedWebDriverError);
 	}
+
 }

@@ -38,7 +38,7 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_UnknownCommandWebDriverError extends E5xx_WebDriverException
+class E5xx_UnknownCommandWebDriverError extends Exxx_WebDriverException
 {
 	public function __construct($msg) {
 		parent::__construct(500, $msg, $msg);

@@ -27,9 +27,14 @@
 
 namespace DataSift\WebDriver;
 
+use PHPUnit_Framework_TestCase;
+
 /**
- * Exception thrown when a DOM element ends up in such a mess that
- * WebDriver can no longer make sense of it
+ * Exception thrown when we attempt to access beyond the end of a list
+ * of some kind.
+ *
+ * I haven't seen this exception occur, so I don't know whether it's
+ * a user error or an internal WebDriver error
  *
  * @category Libraries
  * @package  WebDriver
@@ -38,9 +43,22 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E5xx_InvalidElementStateWebDriverError extends Exxx_WebDriverException
+class E4xx_IndexOutOfBoundsWebDriverErrorTest extends PHPUnit_Framework_TestCase
 {
-	public function __construct($msg) {
-		parent::__construct(500, $msg, $msg);
+	/**
+	 * @covers DataSift\WebDriver\E4xx_IndexOutOfBoundsWebDriverError::__construct
+	 */
+	public function testCanInstantiate()
+	{
+	    // ----------------------------------------------------------------
+	    // perform the change
+
+	    $obj = new E4xx_IndexOutOfBoundsWebDriverError('oh dear');
+
+	    // ----------------------------------------------------------------
+	    // test the results
+
+	    $this->assertTrue($obj instanceof E4xx_IndexOutOfBoundsWebDriverError);
 	}
+
 }
