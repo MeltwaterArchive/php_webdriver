@@ -40,22 +40,22 @@ use PHPUnit_Framework_TestCase;
  * @link     http://facebook.com
  */
 
-class E4xx_NoStringLengthWrapperWebDriverErrorTest extends PHPUnit_Framework_TestCase
+class E4xx_NoStringWrapperWebDriverErrorTest extends PHPUnit_Framework_TestCase
 {
 	/**
-	 * @covers DataSift\WebDriver\E4xx_NoStringLengthWrapperWebDriverError::__construct
+	 * @covers DataSift\WebDriver\E4xx_NoStringWrapperWebDriverError::__construct
 	 */
 	public function testCanInstantiate()
 	{
 	    // ----------------------------------------------------------------
 	    // perform the change
 
-	    $obj = new E4xx_NoStringLengthWrapperWebDriverError('oh dear');
+	    $obj = new E4xx_NoStringWrapperWebDriverError('oh dear');
 
 	    // ----------------------------------------------------------------
 	    // test the results
 
-	    $this->assertTrue($obj instanceof E4xx_NoStringLengthWrapperWebDriverError);
+	    $this->assertTrue($obj instanceof E4xx_NoStringWrapperWebDriverError);
 	}
 
 }

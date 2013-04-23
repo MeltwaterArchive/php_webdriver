@@ -23,7 +23,7 @@ use Exception;
  */
 class WebDriverBaseForTests extends WebDriverBase
 {
-	protected function methods() {
+	protected function getMethods() {
 		return array();
 	}
 }

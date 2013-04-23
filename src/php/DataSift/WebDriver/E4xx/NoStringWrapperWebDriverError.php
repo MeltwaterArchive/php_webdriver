@@ -38,7 +38,7 @@ namespace DataSift\WebDriver;
  * @link     http://facebook.com
  */
 
-class E4xx_NoStringLengthWrapperWebDriverError extends Exxx_WebDriverException
+class E4xx_NoStringWrapperWebDriverError extends Exxx_WebDriverException
 {
 	public function __construct($msg) {
 		parent::__construct(400, $msg, $msg);
