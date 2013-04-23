@@ -58,7 +58,7 @@ class WebDriverElement extends WebDriverContainer
      *
      * @return array the methods and their supported HTTP verbs
      */
-    protected function methods()
+    protected function getMethods()
     {
         return array(
             'click' => 'POST',

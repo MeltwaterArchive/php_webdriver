@@ -38,7 +38,7 @@ namespace DataSift\WebDriver;
  */
 class WebDriverClient extends WebDriverBase
 {
-    protected function methods()
+    protected function getMethods()
     {
         // a list of the JsonWireProtocol methods that this class supports
         return array(
