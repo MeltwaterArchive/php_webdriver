@@ -198,11 +198,11 @@ class BrowserMobProxyBase
             // we throw an exception to explain that the call failed
             $msg = sprintf(
                 'Curl error thrown for http %s to %s',
-                $http_method,
+                $http_verb,
                 $url
             );
-            if ($params && is_array($params)) {
-                $msg .= sprintf(' with params: %s', json_encode($params));
+            if ($payload && is_array($payload)) {
+                $msg .= sprintf(' with params: %s', json_encode($payload));
             }
             throw new E5xx_BrowserMobProxyCurlException($msg . "\n\n" . $error);
         }
