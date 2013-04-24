@@ -10,8 +10,9 @@ NAME=selenium-server
 DATA_DIR="@@DATA_DIR@@"
 if [[ $DATA_DIR == "@""@DATA_DIR@@" ]] ; then
 	# we are running out of a vendor folder
-	DATA_DIR="`dirname $0`/../data/webdriver"
+	DATA_DIR="`dirname $0`/../data"
 fi
+DATA_DIR="$DATA_DIR/webdriver"
 
 # special case - where are our webdrivers?
 BIN_DIR="@@BIN_DIR@@"
@@ -24,10 +25,10 @@ fi
 UNAME=`uname`
 case "$UNAME" in
 	Linux)
-		chromedriver="./chromedriver_linux64"
+		chromedriver="chromedriver_linux64"
 		;;
 	Darwin)
-		chromedriver="./chromedriver_mac"
+		chromedriver="chromedriver_mac"
 		;;
 	*)
 		die "Unsupported platform '$UNAME'; aborting"

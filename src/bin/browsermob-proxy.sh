@@ -11,8 +11,9 @@ PARAMS="-port 9090"
 DATA_DIR="@@DATA_DIR@@"
 if [[ $DATA_DIR == "@""@DATA_DIR@@" ]] ; then
 	# we are running out of a vendor folder
-	DATA_DIR="`dirname $0`/../data/webdriver"
+	DATA_DIR="`dirname $0`/../data"
 fi
+DATA_DIR="$DATA_DIR/webdriver"
 
 function die() {
 	echo "*** error: $@"
