@@ -120,7 +120,7 @@ abstract class WebDriverContainer extends WebDriverBase
         // }
 
         return array_filter(array_map(
-            array($this, 'webDriverElement'), $results['value'])
+            array($this, 'newWebDriverElement'), $results['value'])
         );
     }
 
