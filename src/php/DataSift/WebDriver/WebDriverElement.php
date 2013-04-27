@@ -105,23 +105,24 @@ class WebDriverElement extends WebDriverContainer
         return $this->value(array('value' => $this->convertTextForTyping($text)));
     }
 
-    public function typeSpecial($text)
-    {
-        $params = '{"value": ["' . $text . '"]}';
-        return $this->value($params);
-    }
-
     protected function getElementPath($element_id) {
         return preg_replace(sprintf('/%s$/', $this->id), $element_id, $this->url);
     }
 
     protected function convertTextForTyping($text)
     {
-        $len = strlen($text);
+        // this will hold our return value
         $return = array();
 
-        for($i = 0; $i < $len; $i++) {
-            $return[] = $text{$i};
+        // convert any HTML entities into UTF-8
+        $encodedText = mb_convert_encoding($text, 'UTF-8', 'HTML-ENTITIES');
+
+        // how long is the string now?
+        $encLength = mb_strlen($encodedText, 'UTF-8');
+
+        // convert each UTF8 character into an array entry
+        for($i = 0; $i < $encLength; $i++) {
+            $return[] = mb_substr($encodedText, $i, 1, 'UTF-8');
         }
 
         return $return;
