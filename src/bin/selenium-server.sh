@@ -33,7 +33,7 @@ case "$UNAME" in
 	*)
 		die "Unsupported platform '$UNAME'; aborting"
 esac
-PARAMS="-Dwebdriver.chome.driver=$BIN_DIR/$chromedriver"
+PARAMS="-Dwebdriver.chrome.driver=$BIN_DIR/$chromedriver"
 
 function die() {
 	echo "*** error: $@"
