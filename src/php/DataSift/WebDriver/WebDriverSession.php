@@ -28,7 +28,7 @@
 namespace DataSift\WebDriver;
 use DataSift\Stone\HttpLib\HttpAddress;
 
-class WebDriverSession extends WebDriverHelperContainer
+class WebDriverSession extends WebDriverContainer
 {
     protected function getMethods()
     {
