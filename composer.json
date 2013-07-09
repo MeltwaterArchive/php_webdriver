@@ -1,0 +1,30 @@
+{
+	"name": "datasift/webdriver",
+	"description": "Interface to Selenium 2 aka WebDriver",
+	"homepage": "https://github.com/datasift/php_webdriver",
+	"license": "Apache-2.0",
+	"authors": [
+		{
+			"name": "Stuart Herbert",
+			"email": "stuart.herbert@datasift.com",
+			"homepage": "http://datasift.github.io",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/datasift/php_webdriver/issues",
+		"source": "https://github.com/datasift/php_webdriver/"
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/datasift/ms-lib-stone"
+		}
+	],
+	"require": {
+		"datasift/stone": "@dev"
+	},
+	"autoload": {
+		"psr-0": { "" : "src/php/" }
+	}
+}
