@@ -35,7 +35,7 @@ namespace DataSift\WebDriver;
  * @link     http://www.datasift.com
  * @link     http://facebook.com
  */
-class Configuration
+class WebDriverConfiguration
 {
     /**
      * Returns the project's version
