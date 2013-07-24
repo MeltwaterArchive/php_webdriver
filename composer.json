@@ -26,5 +26,6 @@
 	},
 	"autoload": {
 		"psr-0": { "" : "src/php/" }
-	}
+	},
+	"bin": ["src/bin/browsermob-proxy.sh", "src/bin/selenium-server.sh"]
 }
