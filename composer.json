@@ -22,7 +22,7 @@
 		}
 	],
 	"require": {
-		"datasift/stone": "@dev"
+		"datasift/stone": ">=1.5.0"
 	},
 	"autoload": {
 		"psr-0": { "" : "src/php/" }
