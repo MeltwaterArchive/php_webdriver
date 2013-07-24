@@ -1,0 +1,8 @@
+[
+  {
+    "url": "http://chromedriver.googlecode.com/files/chromedriver_linux64_2.1.zip",
+    "makeExecutable": [
+      "chromedriver"
+    ]
+  }
+]
