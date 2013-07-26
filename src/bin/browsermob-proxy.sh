@@ -10,10 +10,17 @@ PARAMS="-port 9090"
 # special case - where is the JAR file?
 DATA_DIR="@@DATA_DIR@@"
 if [[ $DATA_DIR == "@""@DATA_DIR@@" ]] ; then
-	# we are running out of a vendor folder
-	DATA_DIR="`dirname $0`/../data"
+	# we are running out of a vendor folder ... but which one?
+	if [[ -f `dirname $0`/../data/$JAR ]] ; then
+		# a Phix vendor folder
+		DATA_DIR="`dirname $0`/../data/webdriver"
+	else
+		# a Composer vendor folder
+		DATA_DIR="`dirname $0`/../datasift/webdriver/src/data"
+	fi
+else
+	DATA_DIR="$DATA_DIR/webdriver"
 fi
-DATA_DIR="$DATA_DIR/webdriver"
 
 function die() {
 	echo "*** error: $@"

@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 #
 # selenium-server.sh
 #	start | stop selenium-server.sh
