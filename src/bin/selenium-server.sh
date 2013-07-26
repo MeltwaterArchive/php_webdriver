@@ -1,18 +1,25 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # selenium-server.sh
 #	start | stop selenium-server.sh
 
-JAR=selenium-server-standalone-2.30.0.jar
+JAR=selenium-server-standalone-2.33.0.jar
 NAME=selenium-server
 
 # special case - where is the JAR file?
 DATA_DIR="@@DATA_DIR@@"
 if [[ $DATA_DIR == "@""@DATA_DIR@@" ]] ; then
 	# we are running out of a vendor folder
-	DATA_DIR="`dirname $0`/../data"
+	if [[ -f `dirname $0`/$JAR ]] ; then
+		DATA_DIR="`dirname $0`"
+	else
+		DATA_DIR="`dirname $0`/../data/webdriver"
+	fi
+else
+	# PEAR makes DATA_DIR point at a top-level, not at
+	# something that's package-specific
+	DATA_DIR="$DATA_DIR/webdriver"
 fi
-DATA_DIR="$DATA_DIR/webdriver"
 
 # special case - where are our webdrivers?
 BIN_DIR="@@BIN_DIR@@"
