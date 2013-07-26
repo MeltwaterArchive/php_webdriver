@@ -21,18 +21,10 @@ if [[ $BIN_DIR == "@""@BIN_DIR@@" ]] ; then
 	BIN_DIR="`dirname $0`/../bin"
 fi
 
-# special case - which chromedriver do we want to run?
-UNAME=`uname`
-case "$UNAME" in
-	Linux)
-		chromedriver="chromedriver_linux64"
-		;;
-	Darwin)
-		chromedriver="chromedriver_mac"
-		;;
-	*)
-		die "Unsupported platform '$UNAME'; aborting"
-esac
+# the binary we are going to run
+chromedriver="chromedriver"
+
+# the params to pass to the
 PARAMS="-Dwebdriver.chrome.driver=$BIN_DIR/$chromedriver"
 
 function die() {
