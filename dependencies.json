@@ -4,5 +4,8 @@
     "makeExecutable": [
       "chromedriver"
     ]
+  },
+  {
+  	"url": "http://selenium.googlecode.com/files/selenium-server-standalone-2.33.0.jar"
   }
 ]
