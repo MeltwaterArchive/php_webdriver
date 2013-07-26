@@ -1,12 +1,15 @@
 [
   {
-    "url": "http://chromedriver.googlecode.com/files/chromedriver_linux64_2.1.zip",
-    "makeExecutable": [
-      "chromedriver"
-    ]
+  "name": "chromedriver",
+  "url": {
+	"x86_64": "http://chromedriver.googlecode.com/files/chromedriver_linux64_2.1.zip"
   },
-  {
-  	"url": "http://selenium.googlecode.com/files/selenium-server-standalone-2.33.0.jar",
-  	"makeExecutable": []
-  }
+  "makeExecutable": [
+	"chromedriver"
+  ]
+},
+{
+  "name": "selenium-server",
+  "url": "http://selenium.googlecode.com/files/selenium-server-standalone-2.33.0.jar"
+}
 ]
