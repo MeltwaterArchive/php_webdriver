@@ -2,9 +2,9 @@
   {
   "name": "chromedriver",
   "url": {
-	"x86_64": "http://chromedriver.googlecode.com/files/chromedriver_linux64_2.1.zip",
-	"i386": "https://chromedriver.googlecode.com/files/chromedriver_linux32_26.0.1383.0.zip",
-	"darwin": "https://chromedriver.googlecode.com/files/chromedriver_mac_26.0.1383.0.zip"
+	"linux/x86_64": "http://chromedriver.googlecode.com/files/chromedriver_linux64_2.1.zip",
+	"linux/i386": "https://chromedriver.googlecode.com/files/chromedriver_linux32_26.0.1383.0.zip",
+	"darwin/x86_64": "https://chromedriver.googlecode.com/files/chromedriver_mac_26.0.1383.0.zip"
   },
   "makeExecutable": [
 	"chromedriver"
