@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash -x
 #
 # selenium-server.sh
 #	start | stop selenium-server.sh
@@ -30,9 +30,14 @@ fi
 
 # the binary we are going to run
 chromedriver="chromedriver"
+if [[ `uname` == 'Darwin' ]] ; then
+	firefox="/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+else
+	firefox="`which firefox`"
+fi
 
 # the params to pass to the
-PARAMS="-Dwebdriver.chrome.driver=$BIN_DIR/$chromedriver"
+PARAMS="-Dwebdriver.chrome.driver=$BIN_DIR/$chromedriver -Dwebdriver.firefox.bin=$firefox"
 
 function die() {
 	echo "*** error: $@"
