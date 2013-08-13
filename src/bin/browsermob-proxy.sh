@@ -52,6 +52,9 @@ function stop() {
 		return 0
 	fi
 
+	# stop the children first
+	kill_children $pid
+
 	kill $pid
 	pid=`get_pid`
 	if [[ -n $pid ]] ; then
@@ -115,6 +118,15 @@ function get_pid() {
 	if [[ -n $pid ]] ; then
 		echo "$pid"
 	fi
+}
+
+function kill_children() {
+	local ppid=$1
+
+	# get the pid of all the child processes
+	for x in `ps -ef | awk '$3 == '${ppid}' { print $2 }'` ; do
+		kill $x
+	done
 }
 
 case "$1" in
