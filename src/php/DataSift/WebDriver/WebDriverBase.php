@@ -266,8 +266,9 @@ abstract class WebDriverBase
 
         // the start of the PHP method call tells us which HTTP verb
         // we are going to use to talk to webdriver
-        if (preg_match('/^(get|post|delete)/', $name, $matches)) {
-            $http_verb = strtoupper($matches[0]);
+        if (preg_match('/^(get|post|delete)(.*)/', $name, $matches)) {
+            $http_verb = strtoupper($matches[1]);
+            $webdriver_command = strtolower($matches[2]);
 
             $methods = $this->getMethods();
             if (!in_array($http_verb, $methods[$webdriver_command])) {
