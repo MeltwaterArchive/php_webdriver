@@ -3,7 +3,7 @@
 # selenium-server-hub.sh
 #	start | stop selenium-server in 'hub' mode
 
-JAR=selenium-server-standalone-2.33.0.jar
+JAR=selenium-server-standalone-2.35.0.jar
 NAME=selenium-server
 
 # special case - where is the JAR file?

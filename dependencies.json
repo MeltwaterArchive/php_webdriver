@@ -12,6 +12,6 @@
 },
 {
   "name": "selenium-server",
-  "url": "http://selenium.googlecode.com/files/selenium-server-standalone-2.33.0.jar"
+  "url": "http://selenium.googlecode.com/files/selenium-server-standalone-2.35.0.jar"
 }
 ]
