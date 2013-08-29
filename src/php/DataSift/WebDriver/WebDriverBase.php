@@ -237,7 +237,7 @@ abstract class WebDriverBase
         // did we get a message back from webdriver?
         $message = null;
         if (isset($results['value']) && is_array($results['value']) && isset($results['value']['message'])) {
-            $message = $value['message'];
+            $message = $results['value']['message'];
         }
 
         // did webdriver send us back an error?
