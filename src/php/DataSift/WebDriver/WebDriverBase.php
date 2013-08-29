@@ -166,6 +166,8 @@ abstract class WebDriverBase
             $url .= '/' . $params;
         }
 
+        // var_dump($http_method . ' ' . $url);
+
         // create the curl request
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -222,28 +224,31 @@ abstract class WebDriverBase
 
         // convert the response from webdriver into something we can work with
         $results = json_decode($raw_results, true);
+        $results['info'] = $info;
+
+        // var_dump($raw_results);
+        // var_dump($results);
 
         // did we get a value back from webdriver?
-        $value = null;
-        if (is_array($results) && array_key_exists('value', $results)) {
-            $value = $results['value'];
+        if (!isset($results['value'])) {
+            $results['value'] = null;
         }
 
         // did we get a message back from webdriver?
         $message = null;
-        if (is_array($value) && array_key_exists('message', $value)) {
+        if (isset($results['value']) && is_array($results['value']) && isset($results['value']['message'])) {
             $message = $value['message'];
         }
 
         // did webdriver send us back an error?
-        if ($results['status'] != 0) {
+        if (isset($results['status']) && $results['status'] != 0) {
             // yes it did ... throw the appropriate exception from here
             $className = $this->returnExceptionToThrow($results['status']);
             throw new $className($results['status'], $message, $results);
         }
 
         // if we get here, return the results back to the caller
-        return array('value' => $value, 'info' => $info);
+        return $results;
     }
 
     /**
