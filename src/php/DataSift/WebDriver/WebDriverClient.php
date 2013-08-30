@@ -82,7 +82,7 @@ class WebDriverClient extends WebDriverBase
         }
 
         // return the session back to the caller
-        return new WebDriverSession($results['info']['url'] . '/' .$results['sessionId']);
+        return new WebDriverSession($this->url . '/session/'. $results['sessionId']);
     }
 
     /**
