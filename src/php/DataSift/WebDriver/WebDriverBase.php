@@ -292,7 +292,7 @@ abstract class WebDriverBase
         }
 
         // make the HTTP call using our curl wrapper
-        echo "$http_verb /$webdriver_command\n";
+        // echo "$http_verb /$webdriver_command\n";
         $results = $this->curl(
             $http_verb,
             '/' . $webdriver_command,
