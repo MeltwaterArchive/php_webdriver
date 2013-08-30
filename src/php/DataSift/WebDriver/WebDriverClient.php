@@ -73,6 +73,14 @@ class WebDriverClient extends WebDriverBase
             array(CURLOPT_FOLLOWLOCATION => true)
         );
 
+        // did we get a sessionId back?
+        //
+        // this happens when SauceLabs doesn't like what we've asked;
+        // genuine Selenium WebDriver returns a proper error!
+        if(!isset($results['sessionId'])) {
+            throw new E5xx_SessionNotCreatedWebDriverError('no error message provided by selenium webdriver, sorry :(');
+        }
+
         // return the session back to the caller
         return new WebDriverSession($results['info']['url'] . '/' .$results['sessionId']);
     }
