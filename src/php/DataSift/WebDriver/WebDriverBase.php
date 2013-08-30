@@ -244,7 +244,7 @@ abstract class WebDriverBase
         if (isset($results['status']) && $results['status'] != 0) {
             // yes it did ... throw the appropriate exception from here
             $className = $this->returnExceptionToThrow($results['status']);
-            throw new $className($results['status'], $message, $results);
+            throw new $className($message, $results);
         }
 
         // if we get here, return the results back to the caller
@@ -292,7 +292,7 @@ abstract class WebDriverBase
         }
 
         // make the HTTP call using our curl wrapper
-        echo "$http_verb /$webdriver_command\n";
+        // echo "$http_verb /$webdriver_command\n";
         $results = $this->curl(
             $http_verb,
             '/' . $webdriver_command,
