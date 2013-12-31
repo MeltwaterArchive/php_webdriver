@@ -221,11 +221,11 @@ class BrowserMobProxySession extends BrowserMobProxyBase
      */
     public function setHttpBasicAuth($domain, $username, $password) {
         $this->requireOpenConnection();
-        $this->requireFeature('httpBasicAuth');
+        $this->requireFeature('authBasic');
 
         $response = $this->curl(
             'PUT',
-            '/proxy/' . $this->port . '/basicAuth/' . urlencode($domain),
+            '/proxy/' . $this->port . '/auth/basic/' . urlencode($domain),
             array(
                 'username' => $username,
                 'password' => $password

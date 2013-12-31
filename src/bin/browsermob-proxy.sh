@@ -3,7 +3,7 @@
 # browsermob-proxy.sh
 #	start | stop browsermob-proxy.sh
 
-JAR=browsermob-proxy-2.0-beta-7-SNAPSHOT-standalone.jar
+JAR=browsermob-proxy-2.0-beta-10-SNAPSHOT-standalone.jar
 NAME=browsermob-proxy
 PARAMS="-port 9090"
 
