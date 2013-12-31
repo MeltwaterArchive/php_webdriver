@@ -1,17 +1,21 @@
 [
   {
-  "name": "chromedriver",
-  "url": {
-	"linux/x86_64": "https://chromedriver.googlecode.com/files/chromedriver_linux64_2.2.zip",
-	"linux/i386": "https://chromedriver.googlecode.com/files/chromedriver_linux32_2.2.zip",
-	"darwin/x86_64": "https://chromedriver.googlecode.com/files/chromedriver_mac32_2.2.zip"
+    "name": "chromedriver",
+    "url": {
+    	"linux/x86_64": "http://chromedriver.storage.googleapis.com/2.8//chromedriver_linux64.zip",
+    	"linux/i386": "http://chromedriver.storage.googleapis.com/2.8/chromedriver_linux32.zip",
+    	"darwin/x86_64": "http://chromedriver.storage.googleapis.com/2.8/chromedriver_mac32.zip"
+      },
+    "makeExecutable": [
+    	"chromedriver"
+    ]
   },
-  "makeExecutable": [
-	"chromedriver"
-  ]
-},
-{
-  "name": "selenium-server",
-  "url": "http://selenium.googlecode.com/files/selenium-server-standalone-2.35.0.jar"
-}
+  {
+    "name": "selenium-server",
+    "url": "http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar"
+  },
+  {
+    "name": "browsermob-proxy",
+    "url": "https://s3-eu-west-1.amazonaws.com/ds-qa-tools/browsermob-proxy-2.0-beta-10-SNAPSHOT-standalone.jar"
+  }
 ]

@@ -3,23 +3,15 @@
 # browsermob-proxy.sh
 #	start | stop browsermob-proxy.sh
 
-JAR=browsermob-proxy-2.0-beta-7-SNAPSHOT-standalone.jar
+JAR=browsermob-proxy-2.0-beta-10-SNAPSHOT-standalone.jar
 NAME=browsermob-proxy
 PARAMS="-port 9090"
 
 # special case - where is the JAR file?
-DATA_DIR="@@DATA_DIR@@"
-if [[ $DATA_DIR == "@""@DATA_DIR@@" ]] ; then
-	# we are running out of a vendor folder ... but which one?
-	if [[ -f `dirname $0`/../data/$JAR ]] ; then
-		# a Phix vendor folder
-		DATA_DIR="`dirname $0`/../data/webdriver"
-	else
-		# a Composer vendor folder
-		DATA_DIR="`dirname $0`/../datasift/webdriver/src/data"
-	fi
-else
-	DATA_DIR="$DATA_DIR/webdriver"
+BIN_DIR="@@BIN_DIR@@"
+if [[ $BIN_DIR == "@""@BIN_DIR@@" ]] ; then
+	# we are running out of a vendor folder
+	BIN_DIR="`dirname $0`/../bin"
 fi
 
 function die() {
@@ -36,7 +28,7 @@ function start() {
 	if ! is_running ; then
 		# start the process
 		echo "Starting $NAME in a screen"
-		screen -d -m -S $NAME java -jar "$DATA_DIR/$JAR" $PARAMS
+		screen -d -m -S $NAME java -jar "$BIN_DIR/$JAR" $PARAMS
 
 		# did it start?
 		sleep 1
