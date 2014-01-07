@@ -2,7 +2,7 @@
   {
     "name": "chromedriver",
     "url": {
-    	"linux/x86_64": "http://chromedriver.storage.googleapis.com/2.8//chromedriver_linux64.zip",
+    	"linux/x86_64": "http://chromedriver.storage.googleapis.com/2.8/chromedriver_linux64.zip",
     	"linux/i386": "http://chromedriver.storage.googleapis.com/2.8/chromedriver_linux32.zip",
     	"darwin/x86_64": "http://chromedriver.storage.googleapis.com/2.8/chromedriver_mac32.zip"
       },
