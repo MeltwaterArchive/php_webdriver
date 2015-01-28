@@ -24,6 +24,11 @@ if ! which java > /dev/null 2>&1 ; then
 	die "java not found. please install and then try again"
 fi
 
+# make sure we have the JAR file installed
+if [[ ! -e $BIN_DIR/$JAR ]] ; then
+	die "$BIN_DIR/$JAR not found; do you need to download it?"
+fi
+
 function start() {
 	if ! is_running ; then
 		# start the process

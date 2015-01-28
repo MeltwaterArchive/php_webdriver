@@ -2,9 +2,9 @@
   {
     "name": "chromedriver",
     "url": {
-    	"linux/x86_64": "http://chromedriver.storage.googleapis.com/2.8/chromedriver_linux64.zip",
-    	"linux/i386": "http://chromedriver.storage.googleapis.com/2.8/chromedriver_linux32.zip",
-    	"darwin/x86_64": "http://chromedriver.storage.googleapis.com/2.8/chromedriver_mac32.zip"
+    	"linux/x86_64": "http://chromedriver.storage.googleapis.com/2.13/chromedriver_linux64.zip",
+    	"linux/i386": "http://chromedriver.storage.googleapis.com/2.13/chromedriver_linux32.zip",
+    	"darwin/x86_64": "http://chromedriver.storage.googleapis.com/2.13/chromedriver_mac32.zip"
       },
     "makeExecutable": [
     	"chromedriver"
@@ -12,7 +12,7 @@
   },
   {
     "name": "selenium-server",
-    "url": "http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar"
+    "url": "http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar"
   },
   {
     "name": "browsermob-proxy",

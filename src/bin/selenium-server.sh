@@ -3,7 +3,7 @@
 # selenium-server.sh
 #	start | stop selenium-server.sh
 
-JAR=selenium-server-standalone-2.39.0.jar
+JAR=selenium-server-standalone-2.44.0.jar
 NAME=selenium-server
 
 # special case - where is the JAR file?
@@ -47,6 +47,16 @@ function die() {
 # make sure we have Java installed
 if ! which java > /dev/null 2>&1 ; then
 	die "java not found. please install and then try again"
+fi
+
+# make sure we have our JAR installed
+if [[ ! -e $DATA_DIR/$JAR ]] ; then
+	die "$DATA_DIR/$JAR not found. do you need to download it?"
+fi
+
+# make sure we have our chromedriver installed
+if [[ ! -e $BIN_DIR/chromedriver ]] ; then
+	die "$BIN_DIR/chromedriver not found. do you need to download it?"
 fi
 
 function start() {
