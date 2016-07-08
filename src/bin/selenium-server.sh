@@ -3,7 +3,7 @@
 # selenium-server.sh
 #	start | stop selenium-server.sh
 
-JAR=selenium-server-standalone-2.48.2.jar
+JAR=selenium-server-standalone-2.53.1.jar
 NAME=selenium-server
 
 # special case - where is the JAR file?
